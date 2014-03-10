@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    style="@style/hud"
+    android:clickable="true"
+    android:onClick="hide_nav"
+    ><!--
+    -->
+
+    <LinearLayout style="@style/row">
+        <TextView android:id="@+id/enab" style="@style/status" android:text="---" />
+        <TextView android:id="@+id/stat" style="@style/status" android:text="---" />
+        <TextView android:id="@+id/sate" style="@style/status" android:text="--" />
+        <TextView android:id="@+id/batt" style="@style/status" android:text="---" />
+        <TextView android:id="@+id/flag" style="@style/status" android:text=""
+            android:textColor="@color/disabled" />
+        <TextView android:id="@+id/unit" style="@style/unit" android:text="km/h" />
+    </LinearLayout>
+
+    <TextView android:id="@+id/v" style="@style/value" android:text="---" />
+</RelativeLayout>
+
+<!--
+    vim: ts=4 sw=4 et
+-->

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- holo pallette -->
+	<color name="alblue">#33B5E5</color>
+	<color name="alpurple">#AA66CC</color>
+	<color name="algreen">#99CC00</color>
+	<color name="alorange">#FFBB33</color>
+	<color name="alred">#FF4444</color>
+	<color name="adblue">#0099CC</color>
+	<color name="adpurple">#9933CC</color>
+	<color name="adgreen">#669900</color>
+	<color name="adorange">#FF8800</color>
+	<color name="adred">#CC0000</color>
+
+	<!-- misc -->
+	<color name="white">#fff</color>
+	<color name="twhite">#aaa</color>
+	<color name="dwhite">#888</color>
+	<color name="grey">#444</color>
+	<color name="black">#000</color>
+
+	<color name="active">@color/white</color>
+	<color name="inactive">@color/grey</color>
+	<color name="unit">@color/dwhite</color>
+	<color name="disabled">@color/adred</color>
+	<color name="enabled">@color/algreen</color>
+	<color name="warning">@color/alorange</color>
+	<color name="charging">@color/algreen</color>
+
+	<color name="background">@color/black</color>
+</resources>
+<!--
+vim: ts=4 sw=4
+-->
