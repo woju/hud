@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="eu.woju.android.packages.hud"
-      android:versionCode="1"
-      android:versionName="1.0">
+    package="eu.woju.android.packages.hud"
+    android:versionCode="10"
+    android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19" />
 
-    <!--uses-permission android:name="android.permission.WAKE_LOCK" /-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="CarHudActivity"
-                 android:label="@string/app_name"
-         android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
-                 android:screenOrientation="landscape"><!--  -->
+        <activity android:name="HudActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+            android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,3 +21,7 @@
         </activity>
     </application>
 </manifest>
+
+<!--
+vim: ts=4 sw=4 et
+-->

@@ -1,0 +1,15 @@
+Currently no major new features are planned, only bugfixes.
+This may change for the following reasons:
+
+* OsmAnd (or other navigation app) provides acccess to driving aids via intent
+  broadcast.
+* Remote control from steering becomes available.
+* People will be massively sticking their tablets under windshield and demanding
+  more data displayed. It is probably possible to display more than one number
+  on tablet without sacrificing high readability.
+
+Minor enhacements possible:
+
+* settings activity
+* different units
+* disable vibrator

@@ -19,12 +19,10 @@
 	<color name="grey">#444</color>
 	<color name="black">#000</color>
 
-	<color name="active">@color/white</color>
-	<color name="inactive">@color/grey</color>
-	<color name="unit">@color/dwhite</color>
-	<color name="disabled">@color/adred</color>
-	<color name="enabled">@color/algreen</color>
+	<color name="error">@color/alred</color>
 	<color name="warning">@color/alorange</color>
+	<color name="active">@color/white</color>
+	<color name="inactive">@color/adred</color>
 	<color name="charging">@color/algreen</color>
 
 	<color name="background">@color/black</color>
