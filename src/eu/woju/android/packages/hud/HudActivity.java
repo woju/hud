@@ -38,8 +38,6 @@ import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import eu.woju.android.packages.hud.FontFitTextView;
-
 public class HudActivity extends Activity
 {
     private static final String TAG = "HudActivity";
@@ -78,19 +76,19 @@ public class HudActivity extends Activity
             @Override
             public void onProviderDisabled(String provider) {
                 lastmod = 0;
-                getDisplay().logInactive("OFF");
+                getDisplay().logInactive(getResources().getString(R.string.state_off));
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-                getDisplay().logInactive("NFX");
+                getDisplay().logInactive(getResources().getString(R.string.state_no_fix));
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
                 if (status != LocationProvider.AVAILABLE) {
                     lastmod = 0;
-                    getDisplay().logInactive("NAV");
+                    getDisplay().logInactive(getResources().getString(R.string.state_not_available));
                 }
 
 //              display_sate(extras.getInt("satellites", -1));
@@ -107,9 +105,9 @@ public class HudActivity extends Activity
 
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            this.getDisplay().logInactive("NFX");
+            this.getDisplay().logInactive(getResources().getString(R.string.state_no_fix));
         } else {
-            this.getDisplay().logInactive("OFF");
+            this.getDisplay().logInactive(getResources().getString(R.string.state_off));
         }
 
         lastmod = 0;
@@ -167,7 +165,7 @@ public class HudActivity extends Activity
     protected class WatchdogHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            getDisplay().logInactive("LAG");
+            getDisplay().logInactive(getResources().getString(R.string.state_lag));
         }
     }
 
@@ -192,13 +190,13 @@ public class HudActivity extends Activity
         @Override
         public void run() {
             /*
-             * OBLICZANIE LAGA
+             * LAG ESTIMATION
              *
-             * GPS ~1s (raczej nie wliczamy)
+             * GPS ~1s (not included, device-dependent)
              * watchdog 1000 ms
              * 2500 ms
              *
-             * razem [2.5 .. 3.5) s
+             * total [2.5 .. 3.5) s
              */
             if (lastmod > 0 && lastmod + 2500 < SystemClock.elapsedRealtime()) {
                 handlerWatchdog.sendMessage(new Message());

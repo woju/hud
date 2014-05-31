@@ -2,25 +2,13 @@
 <eu.woju.android.packages.hud.HudView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/display"
 
-    android:scaleY="-1"
-    android:background="@color/background"
-    android:includeFontPadding="false"
-    android:gravity="right"
-    android:text="---"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:typeface="monospace"
 
     android:clickable="true"
     android:onClick="onClick"
     />
 
 <!--
-    android:textSize="48dp"
-    padding
-    textAlignment
- -->
-
-<!--
-    vim: ts=4 sw=4 et
- -->
+vim: ts=4 sw=4 et
+-->

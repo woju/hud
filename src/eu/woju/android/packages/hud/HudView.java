@@ -21,62 +21,87 @@ package eu.woju.android.packages.hud;
 import android.content.res.Resources;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.util.AttributeSet;
 import android.util.Log;
-//import android.view.View;
+import android.view.View;
 
-import eu.woju.android.packages.hud.FontFitTextView;
-
-public class HudView extends FontFitTextView
+public class HudView extends View
 {
     public HudView(Context context) {
         super(context);
+        init();
     }
 
     public HudView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    public HudView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
 
+    private void init() {
+        this.setBackgroundColor(getResources().getColor(R.color.background));
+        this.setPadding(0, 0, 0, 0);
+        this.setScaleY(-1); /* XXX config me */
+
+        this.paint = new Paint();
+        this.paint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+        this.paint.setHinting(Paint.HINTING_OFF);
+        this.paint.setTypeface(Typeface.MONOSPACE);
+        this.paint.setTextAlign(Paint.Align.RIGHT);
+        this.paint.setTextSize(100);
+        this.paint.setStyle(Paint.Style.FILL);
+    }
+
+    /*
+     * public API
+     */
+
     public void log(String e) {
-        Log.d(TAG, String.format("log(%s)", e));
         this.setText(e);
+        this.invalidate();
     }
 
     public void log(String e, int color) {
         this.setText(e);
         this.setTextColor(getResources().getColor(color));
+        this.invalidate();
     }
 
     public void logError(String e) {
-        Log.d(TAG, String.format("logError(%s)", e));
         this.log(e, R.color.error);
     }
 
     public void logWarning(String e) {
-        Log.d(TAG, String.format("logWarning(%s)", e));
         this.log(e, R.color.warning);
     }
 
     public void logInactive(String e) {
-        Log.d(TAG, String.format("logInactive(%s)", e));
         this.log(e, R.color.inactive);
     }
 
     public void displayValue(float v) {
-        Log.d(TAG, String.format("displayValue(%3.0f)", v));
-        this.setText(String.format("%3.0f", v));
-        this.setTextColor(getResources().getColor(battColor));
+        this.setText(String.format("%.0f", v));
+        this.setTextColor(this.battColor);
+        this.invalidate();
     }
 
     public void setBattColor(int color) {
-        Log.d(TAG, String.format("battColor=%#x", color));
-        this.battColor = color;
+        this.battColor = getResources().getColor(color);
+        this.invalidate();
     }
 
     public void setBattColor(Intent intent) {
-        Log.d(TAG, "parsing intent " + intent.getAction());
         String action = intent.getAction();
         if (action == Intent.ACTION_BATTERY_CHANGED) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
@@ -110,15 +135,73 @@ public class HudView extends FontFitTextView
     }
 
     private static final String TAG = "HudView";
+    private String text;
+    private Paint paint;
     private int battColor;
+    private int baseline;
 
-/*
-    protected class HideUIListener extends View.OnClickListener {
-        public void onClick(View v) {
-            v.setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
+
+    /*
+     * not-so-public API
+     */
+
+    /*
+     * setText and setTextColor are protected, because they do not call
+     * invalidate(); use log*() or displayValue().
+     */
+    protected void setText(String text) {
+        this.text = text;
     }
-*/
+
+    protected void setTextColor(int color) {
+        this.paint.setColor(color);
+    }
+
+    /*
+     * We do not override onMeasure, as the super's fits view to the parent.
+     */
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        this.paint.setTextSize(h);
+        this.baseline = 0;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        /*
+         * Calculate text size. We try not to have text jumping around on each
+         * update, so we store result and try to reuse it.
+         */
+
+        final float measure = this.paint.measureText(this.text);
+
+        if (measure > canvas.getWidth()) {
+            this.paint.setTextSize((float)Math.floor(this.paint.getTextSize() * canvas.getWidth() / measure));
+        }
+
+        /*
+         * Bounds are different for each text, specifically round glyphs have
+         * non-zero bottom); hope this won't bite.
+         */
+        if (this.baseline == 0) {
+            Rect bounds = new Rect();
+            paint.getTextBounds(this.text, 0, this.text.length(), bounds);
+            this.baseline = (canvas.getHeight() - bounds.bottom - bounds.top) / 2;
+        }
+
+//      final int y = (this.paint.getTextAlign() == Paint.Align.LEFT) ? 0 : canvas.getWidth();
+
+        /*
+         * Drawing directly (Canvas.drawText) seems to be unreliable when
+         * attempting to draw very high text (comparable to canvas height).
+         * No problem getting text as path and drawing path.
+         */
+        Path path = new Path();
+        this.paint.getTextPath(this.text, 0, this.text.length(), canvas.getWidth(), baseline, path);
+        path.close();
+        canvas.drawPath(path, this.paint);
+    }
 }
 
 // vim: ts=4 sw=4 et

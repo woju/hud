@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HUD</string>
+
+    <string name="state_off">OFF</string>
+    <string name="state_not_available">NAV</string>
+    <string name="state_no_fix">NFX</string>
+    <string name="state_lag">LAG</string>
 </resources>
+
+<!--
+vim: ts=4 sw=4 et
+-->
