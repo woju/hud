@@ -3,6 +3,8 @@ HUD
 
 *Heads-up display for your car*
 
+[![Available of F-Droid](https://f-droid.org/wiki/images/d/d3/F-Droid-button_bigger.png)](https://f-droid.org/repository/browse/?fdid=eu.woju.android.packages.hud)
+
 <img src="res/drawable-xxxhdpi/ic_launcher.png" align="right"
     alt="Heads-up display" title="Heads-up display" />
 
