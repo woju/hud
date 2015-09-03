@@ -3,6 +3,9 @@ HUD
 
 *Heads-up display for your car*
 
+<img src="res/drawable-xxxhdpi/ic_launcher.png" align="right"
+    alt="Heads-up display" title="Heads-up display" />
+
 This app converts your Android phone to simple, clear HUD for your car
 displaying momentary velocity as measured by your GPS. Lodge it between the
 windshield and the dashboard. Usable mainly during the night.
