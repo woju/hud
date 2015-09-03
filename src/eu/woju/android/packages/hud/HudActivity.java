@@ -61,8 +61,6 @@ public class HudActivity extends Activity
         this.setContentView(R.layout.main);
         this.getDisplay().setBattColor(R.color.error);
 
-        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         this.lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         this.ll = new LocationListener() {
             @Override
@@ -96,6 +94,15 @@ public class HudActivity extends Activity
         };
 
         handlerWatchdog = new WatchdogHandler();
+    }
+
+    @Override
+    public void onAttachedToWindow()
+    {
+        this.getWindow().addFlags(0
+            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+        );
     }
 
     @Override
