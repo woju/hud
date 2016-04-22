@@ -7,7 +7,7 @@ This app converts your Android phone to simple, clear HUD for your car
 displaying momentary velocity as measured by your GPS. Lodge it between the
 windshield and the dashboard. Usable mainly during the night.
 
-[![Available of F-Droid](https://f-droid.org/wiki/images/d/d3/F-Droid-button_bigger.png)](https://f-droid.org/repository/browse/?fdid=eu.woju.android.packages.hud)
+[![Available on F-Droid](asset/F-Droid-button_available-on.png)](https://f-droid.org/repository/browse/?fdid=eu.woju.android.packages.hud)
 
 There is absolutely no configuration or interaction. The app displays just one
 thing: the speed (in km/h only at the moment), and nothing else, not to distract
